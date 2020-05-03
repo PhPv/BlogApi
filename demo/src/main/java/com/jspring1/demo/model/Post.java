@@ -4,13 +4,14 @@ package com.jspring1.demo.model;
 import org.springframework.data.annotation.Id;
 
 import javax.annotation.processing.Generated;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
-//@Entity
+@Entity //eto
 public class Post {
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @javax.persistence.Id //eto
+    @GeneratedValue(strategy = GenerationType.AUTO) //eto
     @Id
     public String id;
 
@@ -55,6 +56,15 @@ public class Post {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public Post() {                                                         //оч нужен, хз зачем но без него не работает (с)
+    }
+
+    public Post(String title, String anons, String full_text) {
+        this.title = title;
+        this.anons = anons;
+        this.full_text = full_text;
     }
 }
 
