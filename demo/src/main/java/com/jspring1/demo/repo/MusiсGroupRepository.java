@@ -1,11 +1,9 @@
 package com.jspring1.demo.repo;
 
-import com.jspring1.demo.model.Post;
+import com.jspring1.demo.model.MusicGroup;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.List;
-
-public interface PostRepository2 extends MongoRepository<Post, String> {
+public interface MusiсGroupRepository extends MongoRepository<MusicGroup, String> {
 //    public Post findByFirstName(String firstName);
 //    public List<Post> findByLastName(String lastName);
 }

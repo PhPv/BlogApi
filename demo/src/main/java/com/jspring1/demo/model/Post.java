@@ -1,22 +1,26 @@
 package com.jspring1.demo.model;
 
+//интерфейс нужен для манипуляции таблицами из моделей
 
-import org.springframework.data.annotation.Id;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity //eto
+//Аннотация которая говорит, что класс Пост это модель
+@Entity
 public class Post {
-    @javax.persistence.Id //eto
-    @GeneratedValue(strategy = GenerationType.AUTO) //eto
+
+    // автоматическое добавление уникального айдишника
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public String id;
 
     public String title, anons, full_text;
     public int views;
+
+
 
     public String getId() {
         return id;
@@ -66,6 +70,7 @@ public class Post {
         this.anons = anons;
         this.full_text = full_text;
     }
+
 }
 
 
