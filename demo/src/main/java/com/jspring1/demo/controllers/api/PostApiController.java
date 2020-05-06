@@ -13,31 +13,21 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class BlogApiController {
+public class PostApiController {
 
     @Autowired
     private PostRepository repository;
 
-    @GetMapping(value = "api/post_get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Post> postGet(@RequestParam(value="id", defaultValue = "") String id) {
+    @GetMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Post> postGet(@RequestParam(value="id", defaultValue = "", required = true) String id) {
         return repository.findById(id);
+        // 200 Successful operation
+        // 400 Invalid ID supplied
+        // 404 Post no found
     }
 
-    @DeleteMapping("api/post_del")
-    public String postDelete(@RequestParam(value="id", defaultValue = "") String id) {
-        Post post = repository.findById(id).orElseThrow();
-        repository.delete(post);
-        return "Post was deleted";
-    }
-
-    @DeleteMapping("api/post_del_all")
-    public String postDeleteAll() {
-        repository.deleteAll();
-        return "All post was deleted";
-    }
-
-    @RequestMapping(value = "api/post_add", method = RequestMethod.POST,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "api/post", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Post postAdd(@RequestBody JSONObject body) {
         Post result = new Post();
         result.setTitle(body.get("title").toString());
@@ -45,9 +35,19 @@ public class BlogApiController {
         result.setFull_text(body.get("full_text").toString());
         repository.save(result);
         return result;
+        //405 invalid input
     }
 
-    @RequestMapping(value = "api/post_patch", method = RequestMethod.PATCH,
+    @DeleteMapping("api/post")
+    public String postDelete(@RequestParam(value="id", defaultValue = "", required = true) String id) {
+        Post post = repository.findById(id).orElseThrow();
+        repository.delete(post);
+        return "Post was deleted";
+        //400 Invalid ID supplied
+        //405 Post not found
+    }
+
+    @RequestMapping(value = "api/post", method = RequestMethod.PATCH,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Post postPatch(@RequestBody JSONObject body, @RequestParam(value="id", defaultValue = "") String id) {
         Post result = new Post();
@@ -59,10 +59,17 @@ public class BlogApiController {
         return result;
     }
 
-    @RequestMapping(value = "api/post_get_all", method = RequestMethod.GET,
+    @RequestMapping(value = "api/posts", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public List postGetAll() {
         return repository.findAll();
+        // 200
+        // 404 Posts not found
+    }
 
+    @DeleteMapping("api/posts")
+    public String postDeleteAll() {
+        repository.deleteAll();
+        return "All post was deleted";
     }
 }

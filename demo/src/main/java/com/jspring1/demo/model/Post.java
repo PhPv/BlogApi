@@ -20,7 +20,7 @@ public class Post {
     public String title, anons, full_text;
     public int views;
 
-
+    //геттеры сеттеры
 
     public String getId() {
         return id;
@@ -62,9 +62,11 @@ public class Post {
         this.views = views;
     }
 
-    public Post() {                                                         //оч нужен, хз зачем но без него не работает (с)
+    // выяснить
+    public Post() {
     }
 
+    //конструктор
     public Post(String title, String anons, String full_text) {
         this.title = title;
         this.anons = anons;

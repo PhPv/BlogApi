@@ -1,0 +1,347 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Blog",
+    "description": "Api Description",
+    "contact": {
+      "email": "Petrov.v.163@yandex.ru"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/home"
+    }
+  ],
+  "tags": [
+    {
+      "name": "post",
+      "description": "Access to Petstore orders"
+    },
+    {
+      "name": "MusicGroup",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/api/post": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Find post by ID",
+        "description": "Returns a single post",
+        "operationId": "postGet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of post to return",
+            "required": true,
+            "schema": {
+              "type": "String",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Post not found",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Add new post",
+        "operationId": "postAdd",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/RAZOBRATY'SA": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "title of post"
+                  },
+                  "anons": {
+                    "type": "string",
+                    "description": "anons of post"
+                  },
+                  "full_text": {
+                    "type": "string",
+                    "description": "full text of post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Deletes a post by id",
+        "operationId": "postDelete",
+        "parameters": [
+          {
+            "id": "id",
+            "in": "query",
+            "description": "Post id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Pet not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/posts": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Find all post",
+        "description": "Returns all  post",
+        "operationId": "postGetAll",
+        "parameters": null,
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Posts"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Posts"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Posts not found",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Add new post",
+        "operationId": "postAdd",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/RAZOBRATY'SA": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "title of post"
+                  },
+                  "anons": {
+                    "type": "string",
+                    "description": "anons of post"
+                  },
+                  "full_text": {
+                    "type": "string",
+                    "description": "full text of post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Deletes a post by id",
+        "operationId": "postDelete",
+        "parameters": [
+          {
+            "id": "id",
+            "in": "query",
+            "description": "Post id to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Pet not found",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "required": null,
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Post"
+          },
+          "title": {
+            "type": "string",
+            "example": "post name"
+          },
+          "anons": {
+            "type": "string",
+            "example": "post title"
+          },
+          "full_text": {
+            "type": "string",
+            "example": "post full_text"
+          },
+          "views": {
+            "type": "integer",
+            "example": 42
+          }
+        },
+        "xml": {
+          "name": "Post"
+        }
+      },
+      "MusicGroup": {
+        "required": null,
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/MusicGroup"
+          },
+          "name": {
+            "type": "string",
+            "example": "Armant"
+          },
+          "style": {
+            "type": "string",
+            "example": "Techno"
+          },
+          "country": {
+            "type": "string",
+            "example": "Russia"
+          }
+        },
+        "xml": {
+          "name": "MusicGroup"
+        }
+      },
+      "Posts": {
+        "required": null,
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Posts"
+          },
+          "title": {
+            "type": "string",
+            "example": "post name"
+          },
+          "anons": {
+            "type": "string",
+            "example": "post title"
+          },
+          "full_text": {
+            "type": "string",
+            "example": "post full_text"
+          },
+          "views": {
+            "type": "integer",
+            "example": 42
+          }
+        },
+        "xml": {
+          "name": "Post"
+        }
+      }
+    }
+  }
+}

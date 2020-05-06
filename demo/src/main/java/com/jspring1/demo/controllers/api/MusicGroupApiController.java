@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-public class ArtistApiController {
+public class MusicGroupApiController {
 
     @Autowired
     private MusiсGroupRepository repository;
 
-    @GetMapping(value = "api/group_get", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "api/group", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<MusicGroup> groupGet(@RequestParam(value="id", defaultValue = "") String id) {
         return repository.findById(id);
     }
 
-    @RequestMapping(value = "api/group_add", method = RequestMethod.POST,
+    @RequestMapping(value = "api/group", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public MusicGroup groupAdd(@RequestBody JSONObject body) {
         MusicGroup result = new MusicGroup();
