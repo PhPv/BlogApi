@@ -1,14 +1,11 @@
 package com.jspring1.demo.controllers.api;
 
-
-
 import com.jspring1.demo.model.Post;
 import com.jspring1.demo.repo.PostRepository;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +23,7 @@ public class PostApiController {
         // 404 Post no found
     }
 
-    @RequestMapping(value = "api/post", method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
     public Post postAdd(@RequestBody JSONObject body) {
         Post result = new Post();
         result.setTitle(body.get("title").toString());
@@ -49,18 +45,7 @@ public class PostApiController {
         //405 Post not found
     }
 
-
-
-    @RequestMapping(value = "api/posts", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List postGetAll() {
-        return repository.findAll();
-        // 200
-        // 404 Posts not found
-    }
-
-    @RequestMapping(value = "api/post", method = RequestMethod.PATCH,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
     public Post postPatch(@RequestBody JSONObject body, @RequestParam(value="id", defaultValue = "") String id) {
         Post result = new Post();
         result.setId(id);
@@ -73,6 +58,13 @@ public class PostApiController {
         // 400 Invalid ID supplied
         // 404 Post not found
         // 405 Validation exception
+    }
+
+    @GetMapping(value = "api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List postGetAll() {
+        return repository.findAll();
+        // 200
+        // 404 Posts not found
     }
 
     @DeleteMapping("api/posts")
