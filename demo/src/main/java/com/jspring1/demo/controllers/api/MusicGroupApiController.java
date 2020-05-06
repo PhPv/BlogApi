@@ -20,6 +20,7 @@ public class MusicGroupApiController {
     @GetMapping(value = "api/group", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<MusicGroup> groupGet(@RequestParam(value="id", defaultValue = "") String id) {
         return repository.findById(id);
+        //200 400 404
     }
 
     @RequestMapping(value = "api/group", method = RequestMethod.POST,

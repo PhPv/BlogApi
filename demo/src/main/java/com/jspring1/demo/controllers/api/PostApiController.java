@@ -35,6 +35,7 @@ public class PostApiController {
         result.setFull_text(body.get("full_text").toString());
         repository.save(result);
         return result;
+        // 200
         //405 invalid input
     }
 
@@ -43,8 +44,19 @@ public class PostApiController {
         Post post = repository.findById(id).orElseThrow();
         repository.delete(post);
         return "Post was deleted";
+        //200
         //400 Invalid ID supplied
         //405 Post not found
+    }
+
+
+
+    @RequestMapping(value = "api/posts", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List postGetAll() {
+        return repository.findAll();
+        // 200
+        // 404 Posts not found
     }
 
     @RequestMapping(value = "api/post", method = RequestMethod.PATCH,
@@ -57,19 +69,17 @@ public class PostApiController {
         result.setFull_text(body.get("full_text").toString());
         repository.save(result);
         return result;
-    }
-
-    @RequestMapping(value = "api/posts", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List postGetAll() {
-        return repository.findAll();
         // 200
-        // 404 Posts not found
+        // 400 Invalid ID supplied
+        // 404 Post not found
+        // 405 Validation exception
     }
 
     @DeleteMapping("api/posts")
     public String postDeleteAll() {
         repository.deleteAll();
         return "All post was deleted";
+        // 200
+        // 404 Posts not found
     }
 }

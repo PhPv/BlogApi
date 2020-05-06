@@ -43,7 +43,7 @@
             "description": "ID of post to return",
             "required": true,
             "schema": {
-              "type": "String",
+              "type": "string",
               "format": "string"
             }
           }
@@ -72,12 +72,7 @@
             "description": "Post not found",
             "content": {}
           }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
@@ -85,7 +80,7 @@
         ],
         "summary": "Add new post",
         "operationId": "postAdd",
-        "parameters": null,
+        "parametes": null,
         "requestBody": {
           "content": {
             "application/RAZOBRATY'SA": {
@@ -115,15 +110,48 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "post"
+        ],
+        "summary": "Update an existing post",
+        "operationId": "postPatch",
+        "requestBody": {
+          "description": "Post object that needs to be updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "MusicGroup not found",
+            "content": {}
+          }
+        }
+      },
       "delete": {
         "tags": [
           "post"
         ],
-        "summary": "Deletes a post by id",
+        "summary": "Delete a post by id",
         "operationId": "postDelete",
         "parameters": [
           {
-            "id": "id",
+            "name": "id",
             "in": "query",
             "description": "Post id to delete",
             "required": true,
@@ -139,7 +167,7 @@
             "content": {}
           },
           "404": {
-            "description": "Pet not found",
+            "description": "MusicGroup not found",
             "content": {}
           }
         }
@@ -174,20 +202,76 @@
             "description": "Posts not found",
             "content": {}
           }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
+        }
       },
-      "post": {
+      "delete": {
         "tags": [
           "post"
         ],
-        "summary": "Add new post",
-        "operationId": "postAdd",
+        "summary": "Delete all post",
+        "operationId": "postDeleteAll",
         "parameters": null,
+        "responses": {
+          "404": {
+            "description": "Posts not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/group": {
+      "get": {
+        "tags": [
+          "MusicGroup"
+        ],
+        "summary": "Find MusicGroup by ID",
+        "description": "Returns a single MusicGroup",
+        "operationId": "groupGet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of MusicGroup to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MusicGroup"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MusicGroup"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Post not found",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "MusicGroup"
+        ],
+        "summary": "Add new MusicGroup",
+        "operationId": "groupAdd",
+        "parametes": null,
         "requestBody": {
           "content": {
             "application/RAZOBRATY'SA": {
@@ -195,15 +279,15 @@
                 "properties": {
                   "title": {
                     "type": "string",
-                    "description": "title of post"
+                    "description": "name of MusicGroup"
                   },
                   "anons": {
                     "type": "string",
-                    "description": "anons of post"
+                    "description": "style of MusicGroup"
                   },
                   "full_text": {
                     "type": "string",
-                    "description": "full text of post"
+                    "description": "country of MusicGroup"
                   }
                 }
               }
@@ -217,17 +301,50 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "MusicGroup"
+        ],
+        "summary": "Update an existing MusicGroup",
+        "operationId": "groupPatch",
+        "requestBody": {
+          "description": "MusicGroup object that needs to be updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MusicGroup"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/MusicGroup"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "MusicGroup not found",
+            "content": {}
+          }
+        }
+      },
       "delete": {
         "tags": [
           "post"
         ],
-        "summary": "Deletes a post by id",
-        "operationId": "postDelete",
+        "summary": "Delete a MusicGroup by id",
+        "operationId": "groupDelete",
         "parameters": [
           {
-            "id": "id",
+            "name": "id",
             "in": "query",
-            "description": "Post id to delete",
+            "description": "MusicGroup id to delete",
             "required": true,
             "schema": {
               "type": "string",
@@ -241,7 +358,53 @@
             "content": {}
           },
           "404": {
-            "description": "Pet not found",
+            "description": "MusicGroup not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/groups": {
+      "get": {
+        "tags": [
+          "MusicGroup"
+        ],
+        "summary": "Find all MusicGroups",
+        "description": "Returns all MusicGroups",
+        "operationId": "groupGetAll",
+        "parameters": null,
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/MusicGroup"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MusicGroup"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "MusicGroups not found",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MusicGroup"
+        ],
+        "summary": "Delete all MusicGroups",
+        "operationId": "groupDeleteAll",
+        "parameters": null,
+        "responses": {
+          "404": {
+            "description": "MusicGroups not found",
             "content": {}
           }
         }
@@ -251,7 +414,11 @@
   "components": {
     "schemas": {
       "Post": {
-        "required": null,
+        "required": [
+          "title",
+          "anons",
+          "full_text"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -283,7 +450,11 @@
         }
       },
       "MusicGroup": {
-        "required": null,
+        "required": [
+          "name",
+          "style",
+          "country"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -311,7 +482,11 @@
         }
       },
       "Posts": {
-        "required": null,
+        "required": [
+          "name",
+          "style",
+          "country"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -339,7 +514,7 @@
           }
         },
         "xml": {
-          "name": "Post"
+          "name": "Posts"
         }
       }
     }
