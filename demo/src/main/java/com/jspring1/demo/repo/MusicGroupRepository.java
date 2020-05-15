@@ -4,6 +4,4 @@ import com.jspring1.demo.model.MusicGroup;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface MusiсGroupRepository extends MongoRepository<MusicGroup, String> {
-//    public Post findByFirstName(String firstName);
-//    public List<Post> findByLastName(String lastName);
 }
