@@ -65,11 +65,11 @@
             }
           },
           "400": {
-            "description": "Invalid ID supplied",
+            "description": "ID is empty",
             "content": {}
           },
           "404": {
-            "description": "Post not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -90,11 +90,11 @@
                     "type": "string",
                     "description": "title of post"
                   },
-                  "anons": {
+                  "preview": {
                     "type": "string",
-                    "description": "anons of post"
+                    "description": "preview of post"
                   },
-                  "full_text": {
+                  "content": {
                     "type": "string",
                     "description": "full text of post"
                   }
@@ -134,11 +134,11 @@
         },
         "responses": {
           "400": {
-            "description": "Invalid ID supplied",
+            "description": "ID is empty",
             "content": {}
           },
           "404": {
-            "description": "MusicGroup not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -163,11 +163,11 @@
         ],
         "responses": {
           "400": {
-            "description": "Invalid ID supplied",
+            "description": "ID is empty",
             "content": {}
           },
           "404": {
-            "description": "MusicGroup not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -199,7 +199,7 @@
             }
           },
           "404": {
-            "description": "Posts not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -213,7 +213,7 @@
         "parameters": null,
         "responses": {
           "404": {
-            "description": "Posts not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -256,11 +256,11 @@
             }
           },
           "400": {
-            "description": "Invalid ID supplied",
+            "description": "ID is empty",
             "content": {}
           },
           "404": {
-            "description": "Post not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -281,11 +281,11 @@
                     "type": "string",
                     "description": "name of MusicGroup"
                   },
-                  "anons": {
+                  "preview": {
                     "type": "string",
                     "description": "style of MusicGroup"
                   },
-                  "full_text": {
+                  "content": {
                     "type": "string",
                     "description": "country of MusicGroup"
                   }
@@ -325,11 +325,11 @@
         },
         "responses": {
           "400": {
-            "description": "Invalid ID supplied",
+            "description": "ID is empty",
             "content": {}
           },
           "404": {
-            "description": "MusicGroup not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -354,11 +354,11 @@
         ],
         "responses": {
           "400": {
-            "description": "Invalid ID supplied",
+            "description": "ID is empty",
             "content": {}
           },
           "404": {
-            "description": "MusicGroup not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -390,7 +390,7 @@
             }
           },
           "404": {
-            "description": "MusicGroups not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -404,7 +404,7 @@
         "parameters": null,
         "responses": {
           "404": {
-            "description": "MusicGroups not found",
+            "description": "Content not found",
             "content": {}
           }
         }
@@ -416,8 +416,8 @@
       "Post": {
         "required": [
           "title",
-          "anons",
-          "full_text"
+          "preview",
+          "content"
         ],
         "type": "object",
         "properties": {
@@ -432,13 +432,13 @@
             "type": "string",
             "example": "post name"
           },
-          "anons": {
+          "preview": {
             "type": "string",
             "example": "post title"
           },
-          "full_text": {
+          "content": {
             "type": "string",
-            "example": "post full_text"
+            "example": "post content"
           },
           "views": {
             "type": "integer",
@@ -483,9 +483,9 @@
       },
       "Posts": {
         "required": [
-          "name",
-          "style",
-          "country"
+          "title",
+          "preview",
+          "content"
         ],
         "type": "object",
         "properties": {
@@ -500,13 +500,13 @@
             "type": "string",
             "example": "post name"
           },
-          "anons": {
+          "preview": {
             "type": "string",
             "example": "post title"
           },
-          "full_text": {
+          "content": {
             "type": "string",
-            "example": "post full_text"
+            "example": "post content"
           },
           "views": {
             "type": "integer",

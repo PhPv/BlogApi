@@ -1,5 +1,6 @@
 package com.jspring1.demo.controllers.api;
 
+import com.jspring1.demo.exceptions.*;
 import com.jspring1.demo.model.Post;
 import com.jspring1.demo.repo.PostRepository;
 import net.minidev.json.JSONObject;
@@ -9,69 +10,105 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+
+
 @RestController
 public class PostApiController {
+
+
 
     @Autowired
     private PostRepository repository;
 
-    @GetMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Post> postGet(@RequestParam(value="id", defaultValue = "", required = true) String id) {
+/*    @GetMapping(value = "test", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Post> testGet(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception404{
+        if (repository.findById(id).isEmpty()) {
+            throw new Exception404();
+        }
         return repository.findById(id);
-        // 200 Successful operation
-        // 400 Invalid ID supplied
-        // 404 Post no found
+    }*/
+
+    @GetMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Post> postGet(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception400, Exception404{
+        if (id.isEmpty()) {
+            throw new Exception400();
+        }
+        if (repository.findById(id).isEmpty()) {
+            throw new Exception404();
+        }
+        return repository.findById(id);
+        // 401 Unauthorized
     }
 
+
     @PostMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Post postAdd(@RequestBody JSONObject body) {
+    public Post postAdd(@RequestBody JSONObject body) throws Exception405 {
+        if (
+        body.get("title").toString().isEmpty() ||
+        body.get("preview").toString().isEmpty() ||
+        body.get("content").toString().isEmpty())
+        {
+            throw new Exception405();
+        }
         Post result = new Post();
         result.setTitle(body.get("title").toString());
-        result.setAnons(body.get("anons").toString());
-        result.setFull_text(body.get("full_text").toString());
+        result.setpreview(body.get("preview").toString());
+        result.setcontent(body.get("content").toString());
         repository.save(result);
         return result;
-        // 200
-        //405 invalid input
+        // 401 Unauthorized
     }
 
     @DeleteMapping("api/post")
-    public String postDelete(@RequestParam(value="id", defaultValue = "", required = true) String id) {
+    public String postDelete(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception400, Exception404 {
+        if (id.isEmpty()) {
+            throw new Exception400();
+        }
+        if (repository.findById(id).isEmpty()) {
+            throw new Exception404();
+        }
         Post post = repository.findById(id).orElseThrow();
         repository.delete(post);
         return "Post was deleted";
-        //200
-        //400 Invalid ID supplied
-        //405 Post not found
+        // 401 Unauthorized
+        // 418 Unauthorized admin
     }
 
-    @PatchMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Post postPatch(@RequestBody JSONObject body, @RequestParam(value="id", defaultValue = "") String id) {
+    @PutMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Post postPatch(@RequestBody JSONObject body, @RequestParam(value="id", defaultValue = "") String id) throws Exception400, Exception404{
+        if (id.isEmpty()) {
+            throw new Exception400();
+        }
+        if (repository.findById(id).isEmpty()) {
+            throw new Exception404();
+        }
         Post result = new Post();
         result.setId(id);
         result.setTitle(body.get("title").toString());
-        result.setAnons(body.get("anons").toString());
-        result.setFull_text(body.get("full_text").toString());
+        result.setpreview(body.get("preview").toString());
+        result.setcontent(body.get("content").toString());
         repository.save(result);
         return result;
-        // 200
-        // 400 Invalid ID supplied
-        // 404 Post not found
-        // 405 Validation exception
+        // 401 Unauthorized
     }
 
     @GetMapping(value = "api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List postGetAll() {
+    public List postGetAll() throws Exception404{
+        if (repository.findAll().isEmpty()) {
+            throw new Exception404();
+        }
         return repository.findAll();
-        // 200
-        // 404 Posts not found
     }
 
     @DeleteMapping("api/posts")
-    public String postDeleteAll() {
+    public String postDeleteAll() throws Exception404{
+        if (repository.findAll().isEmpty()) {
+            throw new Exception404();
+        }
         repository.deleteAll();
         return "All post was deleted";
-        // 200
-        // 404 Posts not found
+        // 401 Unauthorized
+        // 418 Unauthorized admin
     }
+
 }

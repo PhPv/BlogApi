@@ -17,7 +17,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public String id;
 
-    public String title, anons, full_text;
+    public String title, preview, content;
     public int views;
 
     //геттеры сеттеры
@@ -38,20 +38,20 @@ public class Post {
         this.title = title;
     }
 
-    public String getAnons() {
-        return anons;
+    public String getpreview() {
+        return preview;
     }
 
-    public void setAnons(String anons) {
-        this.anons = anons;
+    public void setpreview(String preview) {
+        this.preview = preview;
     }
 
-    public String getFull_text() {
-        return full_text;
+    public String getcontent() {
+        return content;
     }
 
-    public void setFull_text(String full_text) {
-        this.full_text = full_text;
+    public void setcontent(String content) {
+        this.content = content;
     }
 
     public int getViews() {
@@ -67,10 +67,10 @@ public class Post {
     }
 
     //конструктор
-    public Post(String title, String anons, String full_text) {
+    public Post(String title, String preview, String content) {
         this.title = title;
-        this.anons = anons;
-        this.full_text = full_text;
+        this.preview = preview;
+        this.content = content;
     }
 
 }

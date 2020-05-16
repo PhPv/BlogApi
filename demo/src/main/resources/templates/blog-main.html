@@ -12,7 +12,7 @@
     <h1>Article's</h1>
     <div th:each="el : ${posts}" class="alert alert-info mt-2">
         <h3 th:text="${el.title}"></h3>
-        <p th:text="${el.anons}"></p>
+        <p th:text="${el.preview}"></p>
         <a th:href="'/blog/' + ${el.id}" class="btn btn-warning">READ</a>
     </div>
 </div>
