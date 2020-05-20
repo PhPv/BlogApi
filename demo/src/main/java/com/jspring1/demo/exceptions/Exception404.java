@@ -12,11 +12,4 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Content not found")
 public class Exception404 extends RuntimeException {
     private String id;
-
-
-
-
-
-
-
 }

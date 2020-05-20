@@ -12,11 +12,5 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED, reason = "Invalid input")
 public class Exception405 extends RuntimeException {
     private String id;
-
-
-
-
-
-
-
 }
+

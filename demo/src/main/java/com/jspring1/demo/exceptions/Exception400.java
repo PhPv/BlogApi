@@ -12,11 +12,4 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "ID is empty")
 public class Exception400 extends RuntimeException {
     private String id;
-
-
-
-
-
-
-
 }
