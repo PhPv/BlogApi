@@ -5,7 +5,7 @@ import com.jspring1.demo.model.User;
 import com.jspring1.demo.model.UserModel;
 import com.jspring1.demo.repo.Role;
 import com.jspring1.demo.repo.UserRepository;
-import com.jspring1.demo.service.UserService;
+//import com.jspring1.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,43 +25,11 @@ public class RegistrationController extends BaseController{
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserService userService;
-
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Model model) {
+        model.addAttribute("userModel", new UserModel());
         return "registration";
     }
-
-/*    @PostMapping("/registration")
-    public String addUser(@RequestParam String username, @RequestParam String password, Model model) {
-        User user = new User(username, password);
-        User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (userFromDb != null) {
-            //вывести сообщение, а не ошибку
-            System.out.println("user already exist");
-            return "registration";
-        } else {
-            userRepository.save(user);
-            return "redirect:/login";
-        }*/
-
-
-    /*    @PostMapping("/registration")
-        public String addUser(User user, Map<String, Object> model) {
-            User userFromDb = userRepository.findByUsername(user.getUsername());
-
-            if (userFromDb != null) {
-                model.put("message", "User exists");
-                return "registration";
-            }
-
-    //        user.setActive(true);
-    //        user.setRoles(Collections.singleton(Role.USER));
-            userRepository.save(user);
-            return "redirect:/login";
-
-        }*/
 
     @GetMapping(value = "/register")
     public String register(Model model) {
@@ -72,10 +40,10 @@ public class RegistrationController extends BaseController{
     }
     @PostMapping(value = "/registration")
     public String register(@Valid UserModel userModel, BindingResult result, Model model) {
-        System.out.println(userModel.getPassword());
-        System.out.println(userModel.getName());
-        userModel.setName("slavka");
-        userModel.setPassword("password");
+        System.out.println(userModel);
+        User user = new User(userModel.getName(), userModel.getPassword());
+        userRepository.save(user);
+        /*
         if (!result.hasErrors()) {
             try {
                 User user = userService.create(userModel);
@@ -86,7 +54,7 @@ public class RegistrationController extends BaseController{
             } catch (Exception e) {
                 log.error(e.getMessage());
                 if (e.getMessage().contains("E11000 duplicate key")) {
-                    result.rejectValue("email", null, "이미 존재하는 이메일 입니다.");
+                    result.rejectValue("user", null, "이미 존재하는 이메일 입니다.");
                 } else {
                     throw e;
                 }
@@ -94,9 +62,9 @@ public class RegistrationController extends BaseController{
         }
         model.addAttribute("result", result);
         model.addAttribute("userModel", userModel);
-        model.addAttribute(LAYOUT_MAIN_CONTENT, "/user/register.html");
+        model.addAttribute(LAYOUT_MAIN_CONTENT, "/user/register.html");*/
 
-        return layout;
+        return "redirect:/login";
     }
 
 }

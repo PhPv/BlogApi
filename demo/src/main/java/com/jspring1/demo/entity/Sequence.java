@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 @Setter
 @Getter
 @ToString
@@ -14,6 +17,7 @@ import lombok.ToString;
 public class Sequence {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	private long seq;
 
