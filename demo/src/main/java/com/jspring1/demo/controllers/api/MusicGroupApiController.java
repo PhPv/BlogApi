@@ -13,13 +13,14 @@ import java.util.Optional;
 
 // рест контроллер - далее реализуются клиент запросы
 @RestController
+@RequestMapping("api")
 public class MusicGroupApiController {
 
 
     @Autowired
     private MusicGroupRepository repository;
 
-    @GetMapping(value = "api/group", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/group", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<MusicGroup> groupGet(@RequestParam(value="id", defaultValue = "") String id) throws Exception400, Exception404{
         if (id.isEmpty()) {
             throw new Exception400();
@@ -30,7 +31,7 @@ public class MusicGroupApiController {
         return repository.findById(id);
     }
 
-    @PostMapping(value = "api/group", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/group", produces = MediaType.APPLICATION_JSON_VALUE)
     public MusicGroup groupAdd(@RequestBody JSONObject body) throws Exception405 {
         if (
         body.get("name").toString().isEmpty() ||
@@ -50,7 +51,7 @@ public class MusicGroupApiController {
     }
 
 
-    @DeleteMapping("api/group")
+    @DeleteMapping("/group")
     public String groupDelete(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception400, Exception404 {
         if (id.isEmpty()) {
             throw new Exception400();
@@ -65,7 +66,7 @@ public class MusicGroupApiController {
         // 418 Unauthorized admin
     }
 
-    @PutMapping(value = "api/group", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/group", produces = MediaType.APPLICATION_JSON_VALUE)
     public MusicGroup groupPatch(@RequestBody JSONObject body, @RequestParam(value="id", defaultValue = "") String id) throws Exception400, Exception404{
         if (id.isEmpty()) {
             throw new Exception400();
@@ -83,7 +84,7 @@ public class MusicGroupApiController {
         // 401 Unauthorized
     }
 
-    @GetMapping(value = "api/groups", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/groups", produces = MediaType.APPLICATION_JSON_VALUE)
     public List groupGetAll() throws Exception404{
         if (repository.findAll().isEmpty()) {
             throw new Exception404();
@@ -93,7 +94,7 @@ public class MusicGroupApiController {
 
     }
 
-    @DeleteMapping("api/groups")
+    @DeleteMapping("/groups")
     public String groupDeleteAll() {
         if (repository.findAll().isEmpty()) {
             throw new Exception404();
