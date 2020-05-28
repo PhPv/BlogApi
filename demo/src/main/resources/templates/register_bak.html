@@ -1,0 +1,46 @@
+
+<section class="user-profile section">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-10 offset-md-1 col-lg-12 offset-lg-0">
+				<!-- Edit Personal Info -->
+				<div class="widget personal-info">
+					<h3 class="widget-header user">회원 정보 등록</h3>
+
+					<form action="/register" method="post">
+
+						
+						<!-- Password -->
+						<div class="form-group">
+							<label for="password">패스워드</label> 
+
+							<input type="password"
+								class="form-control" id="password" name="password"
+								placeholder="Password">
+						</div>
+						<!-- Confirm Password -->
+						<div class="form-group">
+							<label for="confirm-password">패스워드 확인</label> 
+
+							<input type="password" class="form-control" id="confirm-password"
+								name="confirmPassword" placeholder="Password">
+						</div>
+						<!-- Name -->
+						<div class="form-group">
+							<label for="name">이름</label>
+
+							<input type="text"
+								class="form-control" id="name" name="name" placeholder="이름" value="${userModel.name?if_exists}">
+						</div>
+						<!-- Submit button -->
+						<button id="btn_publish"
+							class="btn btn-outline-primary btn-lg btn-block">가입하기</button>
+						<button id="btn_cancel"
+							class="btn btn-outline-secondary btn-lg btn-block">취소</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

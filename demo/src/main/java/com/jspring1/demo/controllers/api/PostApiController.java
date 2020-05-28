@@ -13,13 +13,23 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("api")
+//@RequestMapping("api")
 public class PostApiController {
+
+
 
     @Autowired
     private PostRepository repository;
 
-    @GetMapping(value = "/post", produces = MediaType.APPLICATION_JSON_VALUE)
+/*    @GetMapping(value = "test", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<Post> testGet(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception404{
+        if (repository.findById(id).isEmpty()) {
+            throw new Exception404();
+        }
+        return repository.findById(id);
+    }*/
+
+    @GetMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<Post> postGet(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception400, Exception404{
         if (id.isEmpty()) {
             throw new Exception400();
@@ -32,7 +42,7 @@ public class PostApiController {
     }
 
 
-    @PostMapping(value = "/post", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
     public Post postAdd(@RequestBody JSONObject body) throws Exception405 {
         if (
         body.get("title").toString().isEmpty() ||
@@ -43,14 +53,14 @@ public class PostApiController {
         }
         Post result = new Post();
         result.setTitle(body.get("title").toString());
-        result.setPreview(body.get("preview").toString());
-        result.setContent(body.get("content").toString());
+        result.setpreview(body.get("preview").toString());
+        result.setcontent(body.get("content").toString());
         repository.save(result);
         return result;
         // 401 Unauthorized
     }
 
-    @DeleteMapping("/post")
+    @DeleteMapping("api/post")
     public String postDelete(@RequestParam(value="id", defaultValue = "", required = true) String id) throws Exception400, Exception404 {
         if (id.isEmpty()) {
             throw new Exception400();
@@ -65,7 +75,7 @@ public class PostApiController {
         // 418 Unauthorized admin
     }
 
-    @PutMapping(value = "/post", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "api/post", produces = MediaType.APPLICATION_JSON_VALUE)
     public Post postPatch(@RequestBody JSONObject body, @RequestParam(value="id", defaultValue = "") String id) throws Exception400, Exception404{
         if (id.isEmpty()) {
             throw new Exception400();
@@ -76,14 +86,14 @@ public class PostApiController {
         Post result = new Post();
         result.setId(id);
         result.setTitle(body.get("title").toString());
-        result.setPreview(body.get("preview").toString());
-        result.setContent(body.get("content").toString());
+        result.setpreview(body.get("preview").toString());
+        result.setcontent(body.get("content").toString());
         repository.save(result);
         return result;
         // 401 Unauthorized
     }
 
-    @GetMapping(value = "/posts", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "api/posts", produces = MediaType.APPLICATION_JSON_VALUE)
     public List postGetAll() throws Exception404{
         if (repository.findAll().isEmpty()) {
             throw new Exception404();
@@ -91,7 +101,7 @@ public class PostApiController {
         return repository.findAll();
     }
 
-    @DeleteMapping("/posts")
+    @DeleteMapping("api/posts")
     public String postDeleteAll() throws Exception404{
         if (repository.findAll().isEmpty()) {
             throw new Exception404();
